@@ -1,5 +1,6 @@
 ﻿using BlogServiceAPI.Models;
 using BlogServiceAPI.Services;
+using BlogServiceAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,22 @@ namespace BlogServiceAPI.Controllers
             {
                 List<Category> categories = _categoriesService.All();
                 return Ok(categories);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogInformation(exception.Message);
+                return NoContent();
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}/posts")]
+        public ActionResult GetPosts(long id)
+        {
+            try
+            {
+                List<PostViewModel> posts = _postsService.GetPostViewModelsByCategoryId(id);
+                return Ok(posts);
             }
             catch (Exception exception)
             {

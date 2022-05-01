@@ -90,7 +90,12 @@ namespace BlogServiceAPI.Services
             postsPage.Total = totalPosts;
             postsPage.PageNumber = page;
             return postsPage;
-        }        
+        }
+        public List<PostViewModel> GetPostViewModelsByCategoryId(long categoryId)
+        {
+            List<Post> postsByCategoryId = _postsRepo.GetByCategoryId(categoryId);
+            return MapPostViewModels(postsByCategoryId);
+        }
 
         private List<PostViewModel> MapPostViewModels(List<Post> posts)
         {

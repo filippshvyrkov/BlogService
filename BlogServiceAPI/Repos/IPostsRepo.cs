@@ -13,5 +13,6 @@ namespace BlogServiceAPI.Repos
         public List<Post> GetAll();
         public List<Post> GetPage(int page, int pageSize);
         public int GetPostsCount();
+        public List<Post> GetByCategoryId(long categoryId);
     }
 }

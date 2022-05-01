@@ -143,5 +143,38 @@ namespace BlogServiceAPI.Repos
             }
             return count;
         }
+
+        public List<Post> GetByCategoryId(long categoryId)
+        {            
+            List<Post> posts = new List<Post>();
+            string connectionString = DatabaseConfiguration.DatabaseConnectionString;
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string queryString = "select id, category_id, author_name, title, body, created_at from post where category_id = @categoryId order by created_at desc";
+                using (NpgsqlCommand command = new NpgsqlCommand(queryString, connection))
+                {
+                    command.Parameters.AddWithValue("@categoryId", categoryId);                    
+                    connection.Open();
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Post post = new Post();
+                                post.Id = reader.GetInt64(0);
+                                post.CategoryId = reader.GetInt64(1);
+                                post.AuthorName = reader.GetString(2);
+                                post.Title = reader.GetString(3);
+                                post.Body = reader.GetString(4);
+                                post.CreatedAt = reader.GetDateTime(5);
+                                posts.Add(post);
+                            }
+                        }
+                    }
+                }
+            }
+            return posts;
+        }
     }
 }

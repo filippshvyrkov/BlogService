@@ -11,6 +11,7 @@ namespace BlogServiceAPI.Services
         public NewPost CreatePost(NewPost model);
         public List<PostViewModel> GetAllPostViewModels();
         public PostViewModel GetPostById(long id);
-        public PostsPage GetPostsPage(int page, int pageSize);        
+        public PostsPage GetPostsPage(int page, int pageSize);
+        public List<PostViewModel> GetPostViewModelsByCategoryId(long categoryId);
     }
 }
