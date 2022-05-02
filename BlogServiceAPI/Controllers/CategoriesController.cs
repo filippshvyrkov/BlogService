@@ -37,7 +37,7 @@ namespace BlogServiceAPI.Controllers
             catch (Exception exception)
             {
                 _logger.LogInformation(exception.Message);
-                return NoContent();
+                return StatusCode(500);
             }
         }
 
@@ -53,7 +53,7 @@ namespace BlogServiceAPI.Controllers
             catch (Exception exception)
             {
                 _logger.LogInformation(exception.Message);
-                return NoContent();
+                return StatusCode(500);
             }
         }
     }
